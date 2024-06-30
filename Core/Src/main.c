@@ -32,9 +32,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define AVG_SLOPE (4.3F)
-#define V_AT_25C  (1.43F)
-#define V_REF_INT (1.2F)
 #define FULL_SCALE (4095.0F)
 
 #define V_REF_INT_CAL_ADDR ((uint16_t*)	(0x1FFFF7BAU))
@@ -146,11 +143,11 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
       if(UpdateEvent){
-          sprintf(TxBuffer, "ADC_CH1_raw = %d , ADC_CH2_raw = %d [V]\r\n", AD_RES[1], AD_RES[0]);
+          sprintf(TxBuffer, "ADC_CH1_raw = %d , ADC_CH2_raw = %d\r\n", AD_RES[1], AD_RES[0]);
           HAL_UART_Transmit(&huart2, (uint8_t*)TxBuffer, strlen(TxBuffer), HAL_MAX_DELAY);
           Vdda_meas = VDDA_CALC(AD_RES[0]);
           Vref_meas = VREF_CALC(Vdda_meas, AD_RES[0]);
-          Temperature_meas = TS_CALC(AD_RES[1]);
+          Temperature_meas = TS_CALC(*V_REF_INT_CAL_ADDR * AD_RES[1] / AD_RES[0]);
           sprintf(TxBuffer, "Vdda = %5.3f [V] , Temp = %4.2f [degC]\r\n", Vdda_meas, Temperature_meas);
           HAL_UART_Transmit(&huart2, (uint8_t*)TxBuffer, strlen(TxBuffer), HAL_MAX_DELAY);
           UpdateEvent = 0;

@@ -60,8 +60,8 @@ all: main-build
 main-build: TemperatureSensor.elf secondary-outputs
 
 # Tool invocations
-TemperatureSensor.elf TemperatureSensor.map: $(OBJS) $(USER_OBJS) C:\Users\Eli\ Zeltser\STM32CubeIDE\workspace_1.12.1\TemperatureSensor\STM32F303RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "TemperatureSensor.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Eli Zeltser\STM32CubeIDE\workspace_1.12.1\TemperatureSensor\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TemperatureSensor.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+TemperatureSensor.elf TemperatureSensor.map: $(OBJS) $(USER_OBJS) F:\ST_projects\testing_enviroment\TemperatureSensor\stm32F303_Temperature_sensor\STM32F303RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "TemperatureSensor.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"F:\ST_projects\testing_enviroment\TemperatureSensor\stm32F303_Temperature_sensor\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TemperatureSensor.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
